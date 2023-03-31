@@ -21,44 +21,12 @@ namespace OOP
         private const int TV_PROPS_LEFT_CHARS_COUNT = 30;
         private const int TV_PROPS_RIGHT_CHARS_COUNT = 20;
         private static Objects objects = new Objects();
+
         public FormMain()
         {
             InitializeComponent();
+            SetDefaultTreeViewNodes();
             LbObjects.DataSource = objects.BindingSource;
-            objects.BindingSource.Add(new Truck()
-            {
-                Brand = "Truck",
-                Model = "23-32",
-                Power = 123512,
-                LoadCapacity = 100,
-                NumOfAxles = 6,
-                YearOfManufacture = 2010,
-                Driver = new Driver()
-                {
-                    Name = "Александр",
-                    Surname = "Иванов",
-                    Patronymic = "Иванович",
-                    City = "Минск",
-                    Age = 27,
-                }
-            });
-            objects.BindingSource.Add(new Car()
-            {
-                Brand = "Car",
-                Model = "M2",
-                Power = 123512,
-                BodyType = BodyType.Coupe,
-                NumOfSeats = 5,
-                YearOfManufacture = 2010,
-                Driver = new Driver()
-                {
-                    Name = "Александр",
-                    Surname = "Иванов",
-                    Patronymic = "Иванович",
-                    City = "Минск",
-                    Age = 27,
-                }
-            }); ;
         }
 
         private static string GetPropertyNameByDisplayAttr(PropertyInfo prop)
@@ -69,6 +37,11 @@ namespace OOP
         private static string GetEnumValueNameByDisplayAttr(object value)
         {
             return value.GetType().GetMember(value.ToString()).First()?.GetCustomAttribute<DisplayAttribute>()?.Name ?? value.ToString();
+        }
+
+        private void SetDefaultTreeViewNodes()
+        {
+            TvProps.Nodes.Add("Выберите объект для просмотра");
         }
 
         private List<TreeNode> GetTreeViewOfObject(object obj)
@@ -94,7 +67,7 @@ namespace OOP
             }
             else
             {
-                list.Add(new TreeNode($"{type.Name,-20} {obj?.ToString() ?? "",20}"));
+                list.Add(new TreeNode($"{type.Name,-TV_PROPS_LEFT_CHARS_COUNT} {obj?.ToString() ?? "",TV_PROPS_RIGHT_CHARS_COUNT}"));
             }
             return list;
         }
@@ -106,7 +79,7 @@ namespace OOP
                 if (formObj.ShowDialogCreateObj(typeCreators) == DialogResult.OK)
                 {
                     LbObjects.SelectedIndex = objects.BindingSource.Add(formObj.Result);
-                };
+                }
             }
         }
 
@@ -120,8 +93,7 @@ namespace OOP
                     if (formObj.ShowDialogEditObj(typeCreators, objects.BindingSource[index]) == DialogResult.OK)
                     {
                         objects.BindingSource[index] = formObj.Result;
-
-                    };
+                    }
                 }
             }
 
@@ -149,7 +121,7 @@ namespace OOP
             }
             else
             {
-                TvProps.Nodes.Add($"Выберите объект для просмотра");
+                SetDefaultTreeViewNodes();
             }
 
         }
