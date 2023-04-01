@@ -1,4 +1,4 @@
-using Creators;
+п»їusing Creators;
 using Hierarchy;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -38,7 +38,7 @@ namespace OOP
 
         private void SetDefaultTreeViewNodes()
         {
-            TvProps.Nodes.Add("Выберите объект для просмотра");
+            TvProps.Nodes.Add("Р’С‹Р±РµСЂРёС‚Рµ РѕР±СЉРµРєС‚ РґР»СЏ РїСЂРѕСЃРјРѕС‚СЂР°");
         }
 
         private List<TreeNode> GetTreeViewOfObject(object obj)
