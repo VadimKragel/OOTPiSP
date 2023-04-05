@@ -130,7 +130,7 @@ namespace OOP
             };
         }
 
-        internal DialogResult ShowDialogCreateObj(in Dictionary<Type, (Creator, bool)> typeCreators)
+        internal DialogResult ShowDialogCreateObj(Dictionary<Type, (Creator, bool)> typeCreators)
         {
             _typeCreators = typeCreators;
             Load += (sender, e) =>
@@ -168,7 +168,7 @@ namespace OOP
             return ShowDialog();
         }
 
-        internal DialogResult ShowDialogEditObj(in Dictionary<Type, (Creator, bool)> typeCreators, in object obj)
+        internal DialogResult ShowDialogEditObj(Dictionary<Type, (Creator, bool)> typeCreators, object obj)
         {
             _typeCreators = typeCreators;
             Result = obj;
@@ -286,7 +286,7 @@ namespace OOP
                             return false;
                     }
                 }
-                if (!isValid)
+                if (!isValid && !validateAllProperties)
                     return false;
                 ICollection<ValidationResult> results = new List<ValidationResult>();
                 ValidationContext context = new ValidationContext(obj);

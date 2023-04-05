@@ -42,9 +42,11 @@ namespace OOP
         }
 
         private List<TreeNode> GetTreeViewOfObject(object obj)
-        {
-            Type type = obj.GetType();
+        {  
             List<TreeNode> list = new List<TreeNode>();
+            if (obj == null)
+                return list;
+            Type type = obj.GetType();
             if (type.IsClass)
             {
                 foreach (PropertyInfo prop in type.GetProperties())
