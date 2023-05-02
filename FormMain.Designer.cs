@@ -39,18 +39,25 @@
             CmItemToolStripMenuItem2 = new ToolStripMenuItem();
             CmItemToolStripMenuItem3 = new ToolStripSeparator();
             CmItemToolStripMenuItem4 = new ToolStripMenuItem();
+            menuStrip1 = new MenuStrip();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            openMenuItem = new ToolStripMenuItem();
+            saveMenuItem = new ToolStripMenuItem();
+            fdOpen = new OpenFileDialog();
+            fdSave = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)splitContainer).BeginInit();
             splitContainer.Panel1.SuspendLayout();
             splitContainer.Panel2.SuspendLayout();
             splitContainer.SuspendLayout();
             CmSpace.SuspendLayout();
             CmItem.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainer
             // 
             splitContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            splitContainer.Location = new Point(5, 5);
+            splitContainer.Location = new Point(5, 32);
             splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -62,7 +69,7 @@
             // 
             splitContainer.Panel2.Controls.Add(TvProps);
             splitContainer.Panel2MinSize = 200;
-            splitContainer.Size = new Size(1078, 441);
+            splitContainer.Size = new Size(1078, 414);
             splitContainer.SplitterDistance = 350;
             splitContainer.TabIndex = 5;
             // 
@@ -75,7 +82,7 @@
             LbObjects.ItemHeight = 21;
             LbObjects.Location = new Point(0, 0);
             LbObjects.Name = "LbObjects";
-            LbObjects.Size = new Size(350, 441);
+            LbObjects.Size = new Size(350, 414);
             LbObjects.TabIndex = 3;
             LbObjects.SelectedIndexChanged += LbObjects_SelectedIndexChanged;
             LbObjects.MouseDown += LbObjects_MouseDown;
@@ -101,7 +108,7 @@
             TvProps.Font = new Font("Courier New", 12F, FontStyle.Regular, GraphicsUnit.Point);
             TvProps.Location = new Point(0, 0);
             TvProps.Name = "TvProps";
-            TvProps.Size = new Size(724, 441);
+            TvProps.Size = new Size(724, 414);
             TvProps.TabIndex = 0;
             // 
             // CmItem
@@ -137,12 +144,53 @@
             CmItemToolStripMenuItem4.Text = "Создать";
             CmItemToolStripMenuItem4.Click += CmSpaceToolStripMenuItemCreate_Click;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.BackColor = SystemColors.Window;
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new Padding(2, 2, 0, 2);
+            menuStrip1.Size = new Size(1087, 29);
+            menuStrip1.TabIndex = 6;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { openMenuItem, saveMenuItem });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(61, 25);
+            toolStripMenuItem1.Text = "Файл";
+            // 
+            // openMenuItem
+            // 
+            openMenuItem.Name = "openMenuItem";
+            openMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            openMenuItem.Size = new Size(225, 26);
+            openMenuItem.Text = "Открыть";
+            openMenuItem.Click += openMenuItem_Click;
+            // 
+            // saveMenuItem
+            // 
+            saveMenuItem.Name = "saveMenuItem";
+            saveMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            saveMenuItem.Size = new Size(225, 26);
+            saveMenuItem.Text = "Сохранить";
+            saveMenuItem.Click += saveMenuItem_Click;
+            // 
+            // fdOpen
+            // 
+            fdOpen.FileName = "openFileDialog1";
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1087, 450);
+            Controls.Add(menuStrip1);
             Controls.Add(splitContainer);
+            MainMenuStrip = menuStrip1;
             MinimumSize = new Size(895, 480);
             Name = "FormMain";
             Text = "OOP";
@@ -152,7 +200,10 @@
             splitContainer.ResumeLayout(false);
             CmSpace.ResumeLayout(false);
             CmItem.ResumeLayout(false);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -167,5 +218,11 @@
         private ToolStripSeparator CmItemToolStripMenuItem3;
         private ToolStripMenuItem CmItemToolStripMenuItem4;
         private TreeView TvProps;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem openMenuItem;
+        private ToolStripMenuItem saveMenuItem;
+        private OpenFileDialog fdOpen;
+        private SaveFileDialog fdSave;
     }
 }

@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hierarchy
 {
-    enum BusLength {
+    [Serializable]
+    public enum BusLength {
         [Display(Name = "Ocобо малый")]
         XS,
         [Display(Name = "Малый")]
@@ -16,7 +17,8 @@ namespace Hierarchy
         [Display(Name = "Особо большой")]
         XL
     };
-    enum BodyType
+    [Serializable]
+    public enum BodyType
     {
         [Display(Name = "Седан")]
         Sedan,
@@ -45,8 +47,9 @@ namespace Hierarchy
         [Display(Name = "Минивэн")]
         Minivan
     };
+    [Serializable]
     [Display(Name ="Водитель")]
-    class Driver
+    public class Driver
     {
         [Required]
         [Display(Name = "Имя")]
@@ -69,8 +72,9 @@ namespace Hierarchy
             return $"{Surname} {Name} {Age}";
         }
     }
+    [Serializable]
     [Display(Name = "Транспорт")]
-    abstract class Transport
+    public abstract class Transport
     {
         [Display(Name = "Имя/ID")]
         public string? Name { get; set; }
@@ -82,7 +86,7 @@ namespace Hierarchy
         public string? Model { get; set; }
         [Required]
         [Display(Name = "Год выпуска")]
-        public int? YearOfManufacture { get; set; }
+        public int? YearOfManufacture { get; set; }  
         [Required]
         [Display(Name = "Мощность")]
         public int? Power { get; set; }
@@ -95,8 +99,9 @@ namespace Hierarchy
             return $"{name} {Brand} {Model} {YearOfManufacture}";
         }
     }
+    [Serializable]
     [Display(Name = "Грузовик")]
-    class Truck : Transport
+    public class Truck : Transport
     {
         [Required]
         [Display(Name = "Грузоподъемность")]
@@ -105,41 +110,47 @@ namespace Hierarchy
         [Display(Name = "Количество осей")]
         public int? NumOfAxles { get; set; }
     }
-    abstract class PassengerTransport : Transport
+    [Serializable]
+    public abstract class PassengerTransport : Transport
     {
         [Required]
         [Display(Name = "Количество мест")]
         public int? NumOfSeats { get; set; }
     }
+    [Serializable]
     [Display(Name = "Автомобиль")]
-    class Car : PassengerTransport
+    public class Car : PassengerTransport
     {
         [Required]
         [Display(Name = "Тип кузова")]
         public BodyType BodyType { get; set; }
     }
-    abstract class PublicTransport : PassengerTransport
+    [Serializable]
+    public abstract class PublicTransport : PassengerTransport
     {
         [Required]
         [Display(Name = "Цена билета")]
         public int? TicketPrice { get; set; }
     }
+    [Serializable]
     [Display(Name = "Автобус")]
-    class Bus : PublicTransport
+    public class Bus : PublicTransport
     {
         [Required]
         [Display(Name = "Длина")]
         public BusLength Length { get; set; }
     }
+    [Serializable]
     [Display(Name = "Метро")]
-    class Metro : PublicTransport
+    public class Metro : PublicTransport
     {
         [Required]
         [Display(Name = "Средний интервал")]
         public int? AverageInterval { get; set; }
     }
+    [Serializable]
     [Display(Name = "Поезд")]
-    class Train : PublicTransport
+    public class Train : PublicTransport
     {
         [Required]
         [Display(Name = "Количество вагонов")]

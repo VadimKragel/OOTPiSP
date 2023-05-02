@@ -1,5 +1,6 @@
 ﻿using Creators;
 using Hierarchy;
+using Serializers;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
@@ -15,15 +16,27 @@ namespace OOP
             { typeof(Train), (new CreatorTrain(), true) },
             { typeof(Driver), (new CreatorDriver(), false) },
         };
+        private static ISerializer[] serializers = new ISerializer[] { new BinarySerializer(), new JsonMySerializer(), new TxtSerializer() };
         private const int TV_PROPS_LEFT_CHARS_COUNT = 30;
         private const int TV_PROPS_RIGHT_CHARS_COUNT = 20;
-        private static Objects objects = new Objects();
-
+        private List<object> objects = new List<object>();
+        private BindingSource bindingObjects = new BindingSource();
         public FormMain()
         {
             InitializeComponent();
             SetDefaultTreeViewNodes();
-            LbObjects.DataSource = objects.BindingSource;
+            string filterString = string.Join("|", serializers.Select((ISerializer s) => s.Filter));
+            fdOpen.Filter = filterString;
+            fdSave.Filter = filterString;
+            bindingObjects.ListChanged += (sender, e) =>
+            {
+                if (sender is BindingSource source)
+                {
+                    saveMenuItem.Enabled = source.Count > 0;
+                }
+            };
+            bindingObjects.DataSource = objects;
+            LbObjects.DataSource = bindingObjects;
         }
 
         private static string GetPropertyNameByDisplayAttr(PropertyInfo prop)
@@ -42,7 +55,7 @@ namespace OOP
         }
 
         private List<TreeNode> GetTreeViewOfObject(object obj)
-        {  
+        {
             List<TreeNode> list = new List<TreeNode>();
             if (obj == null)
                 return list;
@@ -77,7 +90,7 @@ namespace OOP
             {
                 if (formObj.ShowDialogCreateObj(typeCreators) == DialogResult.OK)
                 {
-                    LbObjects.SelectedIndex = objects.BindingSource.Add(formObj.Result);
+                    LbObjects.SelectedIndex = bindingObjects.Add(formObj.Result);
                 }
             }
         }
@@ -89,13 +102,12 @@ namespace OOP
             {
                 using (var formObj = new FormObj())
                 {
-                    if (formObj.ShowDialogEditObj(typeCreators, objects.BindingSource[index]) == DialogResult.OK)
+                    if (formObj.ShowDialogEditObj(typeCreators, bindingObjects[index]) == DialogResult.OK)
                     {
-                        objects.BindingSource[index] = formObj.Result;
+                        bindingObjects[index] = formObj.Result;
                     }
                 }
             }
-
         }
 
         private void CmSpaceToolStripMenuItemDelete_Click(object sender, EventArgs e)
@@ -103,7 +115,7 @@ namespace OOP
             int index = LbObjects.SelectedIndex;
             if (index >= 0)
             {
-                objects.BindingSource.RemoveAt(index);
+                bindingObjects.RemoveAt(index);
             }
         }
 
@@ -130,16 +142,45 @@ namespace OOP
             LbObjects.SelectedIndex = LbObjects.IndexFromPoint(e.X, e.Y);
             LbObjects.ContextMenuStrip = LbObjects.SelectedIndex >= 0 ? CmItem : CmSpace;
         }
-    }
-    internal class Objects
-    {
-        private List<object> objects;
-        public BindingSource BindingSource { get; private set; }
-        public Objects()
+
+        private void saveMenuItem_Click(object sender, EventArgs e)
         {
-            objects = new List<object>();
-            BindingSource = new BindingSource();
-            BindingSource.DataSource = objects;
+            if (fdSave.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using FileStream fs = new FileStream(fdSave.FileName, FileMode.Create);
+                    serializers[fdSave.FilterIndex - 1].Serialize(objects, fs);
+                    fs.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось сохранить в указанный файл", "Ошибка сохранения");
+                }
+
+            }
+        }
+
+        private void openMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fdOpen.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using FileStream fs = new FileStream(fdOpen.FileName, FileMode.Open);
+                    List<object> bufObjects = serializers[fdOpen.FilterIndex - 1].Deserialize<List<object>>(fs);
+                    fs.Close();
+                    bindingObjects.Clear();
+                    foreach (object obj in bufObjects)
+                        bindingObjects.Add(obj);   
+                   
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось открыть указанный файл", "Ошибка открытия");
+                }
+
+            }
         }
     }
 }
