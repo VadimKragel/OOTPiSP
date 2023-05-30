@@ -10,15 +10,16 @@ namespace Serializers
 {
     interface ISerializer
     {
-        string Filter { get; }
+        string Name { get; }
+        string[] Extensions { get; }
         void Serialize(object value, Stream stream);
         T Deserialize<T>(Stream stream);
     }
 
     public class BinarySerializer : ISerializer
     {
-        public string Filter => "Binary|*.bin";
-
+        public string Name => "Binary";
+        public string[] Extensions => new string[] { ".bin" };
         [Obsolete("Binary serialization is not safe and is not recommended for data processing.")]
         public void Serialize(object value, Stream stream)
         {
@@ -36,7 +37,8 @@ namespace Serializers
 
     public class JsonMySerializer : ISerializer
     {
-        public string Filter => "JSON|*.json";
+        public string Name => "JSON";
+        public string[] Extensions => new string[] { ".json" };
         private static readonly Encoding utf8 = Encoding.UTF8;
         public void Serialize(object value, Stream stream)
         {
@@ -61,7 +63,8 @@ namespace Serializers
 
     public class TxtSerializer : ISerializer
     {
-        public string Filter => "Text-format|*.txt";
+        public string Name => "Text-format";
+        public string[] Extensions => new string[] { ".txt" };
         private static readonly Encoding utf8 = Encoding.UTF8;
         private const string indentString = "\u0020\u0020";
         private string SerializeObject(object value, string indent = "")
@@ -134,7 +137,5 @@ namespace Serializers
             ObjectParser bm = new ObjectParser(reader, typeof(T));
             return (T)bm.Parse();
         }
-
-
     }
 }

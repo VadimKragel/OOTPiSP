@@ -169,7 +169,7 @@
             openMenuItem.ShortcutKeys = Keys.Control | Keys.O;
             openMenuItem.Size = new Size(225, 26);
             openMenuItem.Text = "Открыть";
-            openMenuItem.Click += openMenuItem_Click;
+            openMenuItem.Click += OpenMenuItem_Click;
             // 
             // saveMenuItem
             // 
@@ -177,11 +177,7 @@
             saveMenuItem.ShortcutKeys = Keys.Control | Keys.S;
             saveMenuItem.Size = new Size(225, 26);
             saveMenuItem.Text = "Сохранить";
-            saveMenuItem.Click += saveMenuItem_Click;
-            // 
-            // fdOpen
-            // 
-            fdOpen.FileName = "openFileDialog1";
+            saveMenuItem.Click += SaveMenuItem_Click;
             // 
             // FormMain
             // 

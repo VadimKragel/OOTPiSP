@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOTPiSP", "OOTPiSP.csproj", "{55795062-964A-4D10-858F-8B2EF2B23B2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOTPiSP", ".\OOTPiSP\OOTPiSP.csproj", "{55795062-964A-4D10-858F-8B2EF2B23B2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\Tests\Tests.csproj", "{779ED81F-8CC5-4B00-BCCF-B172AF444931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", ".\Tests\Tests.csproj", "{779ED81F-8CC5-4B00-BCCF-B172AF444931}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin", ".\Plugin\Plugin.csproj", "{7B012543-30FA-4632-A422-4F43B0A865FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZipPlugin", ".\ZipPlugin\ZipPlugin.csproj", "{A9F27805-F886-445A-8315-DB2C953455B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarPlugin", ".\TarPlugin\TarPlugin.csproj", "{6B8E8E0D-931B-435C-8533-DD35BC1DDCC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{779ED81F-8CC5-4B00-BCCF-B172AF444931}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{779ED81F-8CC5-4B00-BCCF-B172AF444931}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{779ED81F-8CC5-4B00-BCCF-B172AF444931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B012543-30FA-4632-A422-4F43B0A865FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B012543-30FA-4632-A422-4F43B0A865FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B012543-30FA-4632-A422-4F43B0A865FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B012543-30FA-4632-A422-4F43B0A865FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F27805-F886-445A-8315-DB2C953455B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F27805-F886-445A-8315-DB2C953455B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F27805-F886-445A-8315-DB2C953455B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F27805-F886-445A-8315-DB2C953455B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B8E8E0D-931B-435C-8533-DD35BC1DDCC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B8E8E0D-931B-435C-8533-DD35BC1DDCC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B8E8E0D-931B-435C-8533-DD35BC1DDCC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B8E8E0D-931B-435C-8533-DD35BC1DDCC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
